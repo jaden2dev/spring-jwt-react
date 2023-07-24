@@ -1,16 +1,22 @@
 import {SubmitHandler, useForm} from "react-hook-form";
+import * as authAction from "../../utils/auth-actions";
 
 type Inputs = {
-    userId: string,
-    userPassword: string,
+    email: string,
+    password: string,
 };
 
 const LoginForm = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        authAction.loginActionHandler(data.email, data.password).then(r => {
+            console.log('response=>' ,r);
+        })
+        // console.log(data);
+    }
 
     // watch console.
-    console.log(watch(["userId","userPassword"]))
+    // console.log(watch(["email","password"]))
 
     return (
         <section>
@@ -18,13 +24,13 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label htmlFor='userid'>Id</label>
-                    <input className={"border-2"} {...register("userId", { required: true })}/>
-                    {errors.userId && <span>This field is required</span>}
+                    <input className={"border-2"} {...register("email", { required: true })}/>
+                    {errors.email && <span>This field is required</span>}
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
-                    <input type='password' className={"border-2"} {...register("userPassword", { required: true })}/>
-                    {errors.userPassword && <span>This field is required</span>}
+                    <input type='password' className={"border-2"} {...register("password", { required: true })}/>
+                    {errors.email && <span>This field is required</span>}
                 </div>
                 <div>
                     <button type='submit'>Login</button>
