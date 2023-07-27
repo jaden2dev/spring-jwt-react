@@ -1,5 +1,5 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import * as authAction from "../../utils/auth-actions";
+import * as authAction from "../../utils/auth-action";
 
 type Inputs = {
     email: string,
